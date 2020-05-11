@@ -5,11 +5,18 @@
 
 # Step 1:
 # Create dockerpath
-# dockerpath=<your docker ID/path>
+dockerid=agostonp
+dockerpath="agostonp/udproj-kubernetes"
 
 # Step 2:  
 # Authenticate & tag
+
+# docker login --username=$dockerid #To be run only once
+
 echo "Docker ID and Image: $dockerpath"
+docker tag $dockerpath:latest $dockerpath:uploaded
+docker image ls $dockerpath
 
 # Step 3:
 # Push image to a docker repository
+docker push $dockerpath:uploaded
