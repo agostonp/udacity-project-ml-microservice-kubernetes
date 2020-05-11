@@ -1,1 +1,18 @@
-<paste log output from Kubernetes-mediated prediction, here>
+...>kubectl run udprojkubedemo --image="agostonp/udproj-kubernetes:uploaded" --port=8000 --generator="run-pod/v1"
+pod/udprojkubedemo created
+
+...>kubectl get pods
+NAME             READY   STATUS    RESTARTS   AGE
+udprojkubedemo   1/1     Running   0          49s
+
+...>kubectl port-forward pod/udprojkubedemo 8000:80
+Forwarding from 127.0.0.1:8000 -> 80
+Forwarding from [::1]:8000 -> 80
+Handling connection for 8000
+Handling connection for 8000
+Handling connection for 8000
+
+---------------------------------
+And the output of the prediction client from the other terminal:
+...>curl -d "{ \"CHAS\":{ \"0\":0 }, \"RM\":{ \"0\":6.575 }, \"TAX\":{ \"0\":296.0 }, \"PTRATIO\":{ \"0\":15.3 }, \"B\":{ \"0\":396.9 }, \"LSTAT\":{ \"0\":4.98 } }" -H "Content-Type: application/json" -X POST http://localhost:8000/predict
+{"prediction":[20.35373177134412]}
